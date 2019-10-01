@@ -2,7 +2,7 @@
 Logic for dashboard related routes
 """
 from flask import Blueprint, render_template
-from .forms import LogUserForm, secti,masoform, vstupnitestform
+from .forms import LogUserForm, secti,masoform, vstupnitestform, ValidateParent, ValidateDite
 from ..data.database import db
 from ..data.models import LogUser
 blueprint = Blueprint('public', __name__)
@@ -127,3 +127,25 @@ def chart():
     for radek in json_res["list"]:
         data.append(radek["main"]["temp"])
     return render_template('public/chart.tmpl', values=data, labels=data, legend=legend)
+
+@blueprint.route('/vstup_rodic', methods=['GET','POST'])
+def rodic():
+    from flask import flash
+    from ..data.models.loguzivatele import Child, Parent
+    form = ValidateParent()
+    if form.is_submitted():
+        Parent.create(**form.data)
+        flash(message="Ulozeno", category= "infor")
+    return render_template('public/rodic.tmpl', form=form)
+
+@blueprint.route('/vstup_dite', methods=['GET','POST'])
+def dite():
+    from flask import flash
+    from ..data.models.loguzivatele import Child, Parent
+    form = ValidateDite()
+    form.parent_id.choices = db.session.query(Parent.id, Parent.prijmeni).all()
+    if form.is_submitted():
+        Child.create(**form.data)
+        flash(message="Ulozeno", category= "infor")
+    return render_template('public/dite.tmpl', form=form)
+

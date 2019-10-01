@@ -7,8 +7,8 @@
 
   <form method="POST" id='insert-form'>
     {{ form.hidden_tag() }}
-    {{ render_input_field(form.prijmeni) }}
-    {{ render_input_choice(form.pohlavi) }}
+    {{ render_input_field(form.jmeno) }}
+    {{ render_input_choice(form.parent_id) }}
     {{ render_submit() }}
   </form>
 {% endblock %}
