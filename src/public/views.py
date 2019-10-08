@@ -2,7 +2,7 @@
 Logic for dashboard related routes
 """
 from flask import Blueprint, render_template
-from .forms import LogUserForm, secti,masoform, vstupnitestform, ValidateParent, ValidateDite
+from .forms import LogUserForm, secti,masoform, vstupnitestform, ValidateParent, ValidateDite, ValidateSkola
 from ..data.database import db
 from ..data.models import LogUser
 blueprint = Blueprint('public', __name__)
@@ -149,3 +149,12 @@ def dite():
         flash(message="Ulozeno", category= "infor")
     return render_template('public/dite.tmpl', form=form)
 
+@blueprint.route('/skola', methods=['GET','POST'])
+def skola():
+    from flask import flash
+    from ..data.models.loguzivatele import Skola
+    form = ValidateSkola()
+    if form.validate_on_submit():
+        Skola.create(**form.data)
+        flash(message="Ulozeno", category= "infor")
+    return render_template('public/skola.tmpl', form=form)

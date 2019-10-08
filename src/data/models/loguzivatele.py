@@ -41,3 +41,11 @@ class Parent(CRUDModel):
     children = relationship("Child",backref="parent")
     prijmeni = Column(String, nullable=False, index=True)
     pohlavi = Column(Integer,default=1)
+
+class Skola(CRUDModel):
+    __tablename__ = 'skola'
+    id = Column(Integer, primary_key=True)
+    skola = Column(String, nullable=False, index=True)
+    ucitel = Column(String, nullable=False, index=True)
+    trida = Column(String, nullable=False, index=True)
+    rodneCislo = Column(String, nullable=False, unique=True, index=True)

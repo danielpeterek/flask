@@ -1,0 +1,16 @@
+{% from "macros/fields.tmpl" import render_input_field,render_input, render_input_choice, render_submit %}
+{% extends "shared/layout.tmpl" %}
+
+{% block title %}Skola{% endblock %}
+
+{% block content %}
+
+  <form method="POST" id='insert-form'>
+    {{ form.hidden_tag() }}
+    {{ render_input_field(form.skola) }}
+      {{ render_input_field(form.trida) }}
+      {{ render_input_field(form.ucitel) }}
+      {{ render_input_field(form.rodneCislo) }}
+    {{ render_submit() }}
+  </form>
+{% endblock %}

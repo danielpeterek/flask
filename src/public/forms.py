@@ -82,3 +82,14 @@ class ValidateParent(Form):
 class ValidateDite(Form):
     parent_id = SelectField(choices=[])
     jmeno = TextField("jmeno", validators=[InputRequired(message="vyzadovano")])
+
+class ValidateSkola(Form):
+    skola = TextField("skola", validators=[InputRequired(message="vyzadovano")])
+    trida = TextField('trida', validators=[
+        Predicate(safe_characters, message="Please use only letters (a-z) and numbers"),
+        Length(min=2, max=4, message="Please use between 2 and 4 characters"),
+        InputRequired(message="You can't leave this empty")])
+    ucitel = TextField("ucitel", validators=[InputRequired(message="vyzadovano")])
+    rodneCislo = IntegerField("rodne cislo", validators=[
+        Length(min=10, max=10, message="Please use 10 characters"),
+        InputRequired(message="vyzadovano")])
