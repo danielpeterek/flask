@@ -12,5 +12,15 @@
       {{ render_input_field(form.ucitel) }}
       {{ render_input_field(form.rodneCislo) }}
     {{ render_submit() }}
+  <table>
+      {% for n in data %}
+      <tr>
+          <td>{{ n.skola }}</td>
+          <td>{{ n.trida }}</td>
+          <td>{{ n.ucitel }}</td>
+          <td>{{ n.rodneCislo }}</td>
+      </tr>
+      {% endfor %}
+  </table>
   </form>
 {% endblock %}

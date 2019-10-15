@@ -1,4 +1,4 @@
-import re
+import re, datetime
 
 from flask_wtf import Form
 from wtforms.fields import BooleanField, TextField, PasswordField, DateTimeField, IntegerField,SelectField
@@ -91,5 +91,9 @@ class ValidateSkola(Form):
         InputRequired(message="You can't leave this empty")])
     ucitel = TextField("ucitel", validators=[InputRequired(message="vyzadovano")])
     rodneCislo = IntegerField("rodne cislo", validators=[
-        Length(min=10, max=10, message="Please use 10 characters"),
+        Length(min=9, max=11, message="Please use 10 characters"),
         InputRequired(message="vyzadovano")])
+
+class ValidateTeplota(Form):
+    teplota = IntegerField("teplota", validators=[InputRequired(message="vyzadovano")])
+    time = datetime.datetime.now()

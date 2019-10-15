@@ -16,6 +16,8 @@ class Vysledky(CRUDModel, UserMixin):
     username = Column(String(64), nullable=False, doc="The user's username.")
     hodnoceni = Column(Float)
 
+
+
     # Use custom constructor
     # pylint: disable=W0231
     def __init__(self, **kwargs):

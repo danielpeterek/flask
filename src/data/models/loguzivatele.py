@@ -49,3 +49,14 @@ class Skola(CRUDModel):
     ucitel = Column(String, nullable=False, index=True)
     trida = Column(String, nullable=False, index=True)
     rodneCislo = Column(String, nullable=False, unique=True, index=True)
+
+class Tabulka(CRUDModel):
+    __tablename__ = 'tabulka'
+    id = Column(Integer, primary_key=True )
+    time = Column(DateTime)
+    teplota = Column(String, nullable=False, index=True)
+
+    def __init__(self, **kwargs):
+        self.time = datetime.utcnow()
+        for k, v in kwargs.iteritems():
+            setattr(self, k, v)

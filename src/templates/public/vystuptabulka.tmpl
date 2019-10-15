@@ -4,10 +4,16 @@
 {% block title %}Vysledek vystup{% endblock %}
 
 {% block content %}
- <table>
-    {% for radek in data %}
-        <tr><td><a href=/vystupuzivatele{{ radek.username }} > {{ radek.username }}</a></td>
-        <td>{{ radek.suma }}</td>
+ <table class="table-bordered">
+        <thead class="text-center">
+            <tr><td>ID</td><td>CAS</td><td>TEPLOTA</td></tr>
+        </thead>
+    {% for n in data %}
+        <tbody class="text-center">
+        <tr><td>{{ n.id }}</td>
+        <td>{{ n.time }}</td>
+        <td>{{ n.teplota }}</td></tr>
+        </tbody>
     {% endfor %}
     </table>
 

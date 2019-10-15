@@ -2,7 +2,7 @@
 Logic for dashboard related routes
 """
 from flask import Blueprint, render_template
-from .forms import LogUserForm, secti,masoform, vstupnitestform, ValidateParent, ValidateDite, ValidateSkola
+from .forms import LogUserForm, secti,masoform, vstupnitestform, ValidateParent, ValidateDite, ValidateSkola, ValidateTeplota
 from ..data.database import db
 from ..data.models import LogUser
 blueprint = Blueprint('public', __name__)
@@ -158,3 +158,26 @@ def skola():
         Skola.create(**form.data)
         flash(message="Ulozeno", category= "infor")
     return render_template('public/skola.tmpl', form=form)
+
+@blueprint.route('/tabulka', methods=['GET','POST'])
+def tabulka():
+    from flask import flash
+    from ..data.models.loguzivatele import Tabulka
+    form = ValidateTeplota()
+    if form.is_submitted():
+        Tabulka.create(**form.data)
+        flash(message="Ulozeno", category= "infor")
+    return render_template('public/tabulka.tmpl', form=form)
+
+@blueprint.route('/vystuptabulka', methods=['GET'])
+def vystuptabulka():
+    from ..data.models.loguzivatele import Tabulka
+    data = db.session.query(Tabulka).all()
+    return render_template('public/vystuptabulka.tmpl', data=data)
+
+@blueprint.route('/graf', methods=['GET'])
+def graf():
+    from ..data.models.loguzivatele import Tabulka
+    legend = 'Temperatures'
+    temperatures = db.session.query(Tabulka).all()
+    return render_template('public/graf.tmpl', values=temperatures, legend=legend)
